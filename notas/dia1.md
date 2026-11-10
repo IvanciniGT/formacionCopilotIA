@@ -228,7 +228,7 @@ Con un programa PUEDO HACER casi CUALQUIER COSA hoy en día!
 
 ---
 
-En este nuevo mundo... la IA no puede serel tipo LISTO!
+En este nuevo mundo... la IA no puede ser el tipo LISTO!
 Si lo es (o la uso como tal) Pierdo totalmente el control sobre lo que está haciendo y sobre las consecuencias de sus acciones.
 Ya no es que me "explique" algo... Es que toma decisiones y opera sobre el mundo real, con consecuencias REALES.
 
@@ -269,4 +269,173 @@ Cuando el humano da esas frase, el humano tienen MUCHO CONOCIMIENTO EN SU CABEZA
 A un humano NUNCA Se le ocurriría BORRAR EL ENTORNO DE PRODUCCION sin antes considerar todas las implicaciones y riesgos asociados.
 Para la IA puede ser una decisión LOGICA! si lo que quiero es minimizar los fallos en el entorno de producción, sin tener en cuenta las consecuencias de borrar dicho entorno.
 
+Hay varias formas.
+- Prompt (INDICACION).. problema... Que nuestros propts suelen ser IMPRECISOS... AUNQUE NOS ESFORCEMOS. Es imposible que suministremos en un prompt todo lo que tenemos en la cabeza.
+  Hemos oído hablar de la importancia de los prompts? Hay plantillas de prompts . Hay cursos (ya no) de INGERIERO DE PROMPTS.
+  En el mundo de los agentes los prompts no valen NADA.
+- Contexto ????
+  ESTO SI ES IMPORTANTE. IMPORTANTISIMO
+- Entorno
+  El bot (chatbot...) que usemos va a ejecutar los programas de la IA en un ENTORNO... Necesito LIMITA lo que ppuede o no hacerse en ese entorno. A veces FISICAMENTE. Que ese entorno no tenga acceso a las BBDD de producción, ni a archivos sensibles, ni a recursos críticos del sistema.
+    En el entorno quito : LIMITO
+    o pongo: PERMITO
+  A veces me interesa que la IA puede tener acceso a ciertas herramientas / fuentes de datos.
+  Y hay un estandar en la industria (que fijo Antropic), llamado MCP. Y usamos lo que se llaman servidores MCP.
+
+  Básicamente un servidor MCP es una puerta que le pongo a la IA para que haga cierto tipo de tareas o hable con ciertos servicios o recursos específicos, que me interesa. Por ejemplo, pongo un MCP que acceda a MI BBDD DE PRODUCCION.
+
+  Lo que pasa es que quizás ese servidor MCP usa por detrás un usuario que solo tiene permiso de CONSULTA a la base de datos, por lo que la IA no podrá modificar los datos directamente, garantizando así la seguridad y la integridad de la información.
+
+  Los servidores MCP son muchos y muy variados..
+  - Servidor MCP para acceso a las BBDD de producción                   <- Evidentemente no lo configuro yo.
+  - Servidor MCP para acceso a mi email
+  - Servidor MCP para acceso al DRIVE de la empresa
+  - Servidor MCP para acceso a un navcegador en local donde la IA puede acceder a internet para buscar cosas... <- Lo configuro yo
+
+---
+
+## Contexto
+
+Cómo funcionan los modelos de IA (LLM).
+Son programas que reciben un texto y producen otro.
+El texto que generan puede incluir CODIGO, PROGRAMAS.
+Al fin y al cabo, los programas los escribimos en un LEMNGUAJE DE PROGRAMACION.. y son texto.
+De hecho a estas herramientas se les da mejor escribir en LENGUAJES DE PROGRAMACION (lenguajes formales) que en lenguaje natural, porque los lenguajes de programación son más precisos y estructurados. Los lenguajes naturales tienen reglas sintácticas más laxas.
+
+- Lenguajes natural (los que hablamos los seres humanos): El que hablen vuestros padres
+                                                            Dos más dos es igual a cuatro.
+                                                            Si sumas dos más dos te da cuatro.
+                                                            El resultado de sumar dos y dos son cuatro.
+- Lenguaje formal:                                        Lenguaje matemático
+                                                            2 + 2 = 4
+
+Los lenguajes de programación son lenguajes FORMALES. Python, JAVA, COBOL.
+
+Pero solo hacen eso... Recibir un texto y producir OTRO!
+
+La pregunta es QUE TEXTO RECIBEN?
+A ese texto se le llama? CONTEXTO!
+Una parte del CONTEXTO es el PROMPT que le damos al modelo, es decir, el texto inicial que le proporcionamos para que genere su respuesta.
+Pero lo que recibe el programa NO ES SOLO EL PROMPT... sino mucha más información.
+
+Los modelos de hoy en día tienen una VENATANA DE CONTEXTO del entorno de 1 millón de tokens... casí un millíon de palabras... Eso es lo que son capaces de RECIBI, ANALIZAR y UTILIZAR para generar su respuesta.
+
+En un prompt escribimos 50 palabras? 500? 5000? RIDICULO! comparado con el tamaño del contexto!
+
+Entonces.. qué otras cosas hay en el CONTEXTO?
+Un huevo de cosas que inyecta en automático la herramienta de chat que estemos usando:
+- Quién soy yo
+- Información acerca del entorno donde se pueden ejecutar los programas que genera el modelo
+- Estado actual de la conversación (mensajes previos / respuestas previas)
+- OTROS TEXTOS que yo haya pedido explicitamente que se inyecten siempre en el contexto.
+
+
+Cada vez que hacemos una pregunta a la IA (mandamos un mensaje en el chat), el CHAT no manda solo nuestro mensaje.
+GENERA UN NUEVO CONTEXTO! (texto)
+Donde vuelve a meter:
+- Quien soy yo
+- Información acerca del entorno donde se pueden ejecutar los programas que genera el modelo
+- Estado actual de la conversación (mensajes previos / respuestas previas)
+- OTROS TEXTOS que yo haya pedido explicitamente que se inyecten siempre en el contexto.
+- Nuevo prompt que acabamos de enviar al chat
+
+Y la IA vuelve a procesar TODO!
+Me genera una respuesta...
+Y yo la leo y escribo nuevo mensaje.
+Y la herramienat de chat (COPILOT, CLAUDE CODE), 
+vuelve a generar un nuevo contexto con toda la información anterior más el nuevo prompt, y así sucesivamente en cada interacción.   
+- Quién soy yo
+- Información acerca del entorno donde se pueden ejecutar los programas que genera el modelo
+- Estado actual de la conversación (mensajes previos / respuestas previas)
+- OTROS TEXTOS que yo haya pedido explicitamente que se inyecten siempre en el contexto.
+- El prompt anterior
+- Con la respuesta que me dió
+- Nuevo mensaje que acabo de enviar al chat
+
+Y la IA vuelve a procesar TODO! de nuevo.
+
+
+Laa herramienta de chat no se encarga solo de pasar el mensajito a la IA. Se encarga de muchas muchas otras cosas:
+- Ofrecerme modelos de IA disponibles para usar
+- Generar y gestionar el contexto de la conversación con la IA
+- Ejecutar a petición de la IA programas en el entorno disponible
+- ...
+
+Eso es lo hace una herramienta como Copilot chat o Github Copilot.
+No son la IA.. pero es otra parte del trabajo que es necesario hacer.
+
+- Qué es eso de:
+> OTROS TEXTOS que yo haya pedido explicitamente que se inyecten siempre en el contexto.
+
+Esto es algo que cualquier de estas herramientas me permite.
+Depende de la herramienta se configura de una forma u otra.
+Herramienats similares suelen admitir formas SIMILARES de inyectar textos adicionales en el contexto.
+Herramientas distintas pueden tener formas diferentes de configurar estos textos adicionales, pero la idea general es la misma: inyectar información que siempre debe estar presente en el contexto de la conversación con la IA.
+
+- Por ejemplo, yo tengo montado dentro de mi cluster de kubernetes: OPENCLAW, que permite montar agentes de IA autónomos:
+  - Menchu (Gestiona mi email, calendario, facturación)
+  - Felipe
+  - ...
+
+En ese programa hay unos ficheros con nombres muy especiales que sirven para inyectar información al contexto:
+- SOUL.md        Que contiene información acerca de la personalidad de ese agente de IA
+- AGENT.md       Que contiene información acerca de las tareas y las formas de trabajo de ese agente de IA
+- USER.md        Que contiene información acerca de mi.
+
+Openclaw también inyecta información previa de la conversación actual y de otras conversaciones.
+Esta herramienta cuando DUERME, sueña... y consolida pensamientos en memoria.
+Descarta información ABSRUDA que no aporta de las conversaciones que he tenido con ella en ese día, y conserva la información relevante para futuras interacciones.
+
+En github copilot eesto no existe.
+No hay fichero SOUL, ni AGENT.md, ni USER.md.
+Bueno.. en relidad AGENT.md si existe, es una forma de inyectar información en el contexto.
+
+Github copilot usa ficheros que pongamos dentro de la carpeta .github de nuestro proyecto (el que esté abierto en vscode) para inyectar información en el contexto de la conversación con la IA.
+ Un archivo que definimos siempre es el AGENT.md, que contiene información acerca de las tareas y las formas de trabajo del agente de IA.
+ No tendremos solo un agente. Tendremos muchos... Y queremos tener muchos.
+ Pasa igual que con las personas. Una persona puede especializarse en todo tipo de tareas? NO
+ Y un solo agente TAMPOCO.
+ El especializar un agente es el crear un CONTEXTO con la información relevante para el tipo de tarea(s) que ese agente acometerá!
+
+Y nos vamos creando muchos agentes. Para cada tipo de tarea tendré un agente.
+- Agente para ayudarme a generar informes
+- Agente para ayudarme a hacer análisis de ciertas cosas
+- Agente para ayudarme a definir requisitos funcionales de un sistema
+- Agente para ayudarme a desarrollar un sistema 
+- Agente para ayudarme a mantener un sistema existente
+- Agente para ayudarme a hacer pruebas de un sistema
+- ...
+
+Muchas veces, la empresa me suministra unos ficheros de agente ya configurados, para ciertas cosas.
+Eso está guay... esos ficheros hay que currarselos!
+Es gracioso.. porque muchas veces usamos una IA para generar esos ficheros de agente, y luego los usamos para que otra IA haga su trabajo.
+
+Ese es uno de los archivos que usamos para inyectar información a un agente cuando trabajamos con github copilot. Tambien con claude code.
+Aunque a claude code le gusta más llamarlo CLAUDE.md (pero también lo lee si lo llamas AGENT.md)
+
+Pero ese es uno.
+El agente hará muchas cosas (tareas diferentes... normalmente de la misma naturaleza).
+Y no quiero pasarme la vida una y otra vez explicándole al agente como me gusta que se hagan cierto tipo de tareas.
+Y Entonces se lo explico una vez, por tarea... eso es lo que llamamos un SKILL! (habilidad) que enseñamos al agente.
+
+- Puedo tener un agente experto en pruebas
+- Que puede tener muchas habilidades (SKILLS):
+  - Definir pruebas unitarias
+  - Definir pruebas de integración
+  - Definir pruebas de sistema
+  - Revisar si quedan cosas por probar en un sistema
+  - Analizar la calidad del sistema
+  - Escribir un informes de pruebas
+
+
+Por supuesto podría irselas explicando en el chat, vía prompts...
+Hasta que el contexto se llene!
+Una vez el contexto (que incluye el historial de la ocnversación) se llena, se produce un COMPACTADO.
+Se RESUME todo lo que hemos hablado: DESCARTANDO MUCHA INFORMACION, la queno es relevante o la que llevo mucho tiempo sin usar.
+- Si el día 1 le pedí que definiera pruebas unitariasy se lo explique, eso está en contexto
+- Si despés me pongo a hablar de informes... e informes.. y explicarle acerca de informes.. y más informes... llegará un momento que se llene el contexto. Y se compactará... y quizás como lo de las pruebas unitarias llevo tanto tiempo sin usarl... se borrará...
+- Y al rato le pido: Hazme pruebas unitarias... Y ya no se acuerda de cómo se hacen (ya no están en contexto)
+
+Por eso usamos ficheros de SKILLS para ir explicándole como hacer ciertas tareas.
+De forma que cuando el modelo quiera hacer una tarea de un tipo concreto, lo primero que hace es mirar si hay un skill disponible para ese tipo de tarea. Y si lo hay, lo incluye en el contexto... de hecho... solicita a la herramienta de chat que incluya eso en el contexto y se lo pase.
 
