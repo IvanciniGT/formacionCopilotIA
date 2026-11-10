@@ -1,0 +1,22 @@
+# Dependencias y builds
+node_modules/
+target/
+dist/
+build/
+__pycache__/
+.venv/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+
+# Secretos: nunca al repositorio
+.env
+*.pem
+
+# IDEs y sistema
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
