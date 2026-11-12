@@ -411,7 +411,7 @@ Eso está guay... esos ficheros hay que currarselos!
 Es gracioso.. porque muchas veces usamos una IA para generar esos ficheros de agente, y luego los usamos para que otra IA haga su trabajo.
 
 Ese es uno de los archivos que usamos para inyectar información a un agente cuando trabajamos con github copilot. Tambien con claude code.
-Aunque a claude code le gusta más llamarlo CLAUDE.md (pero también lo lee si lo llamas AGENT.md)
+Aunque a claude code le gusta más llamarlo CLAUDE.md (pero también lo lee si lo llamas AGENTS.md)
 
 Pero ese es uno.
 El agente hará muchas cosas (tareas diferentes... normalmente de la misma naturaleza).
@@ -438,4 +438,3 @@ Se RESUME todo lo que hemos hablado: DESCARTANDO MUCHA INFORMACION, la queno es 
 
 Por eso usamos ficheros de SKILLS para ir explicándole como hacer ciertas tareas.
 De forma que cuando el modelo quiera hacer una tarea de un tipo concreto, lo primero que hace es mirar si hay un skill disponible para ese tipo de tarea. Y si lo hay, lo incluye en el contexto... de hecho... solicita a la herramienta de chat que incluya eso en el contexto y se lo pase.
-

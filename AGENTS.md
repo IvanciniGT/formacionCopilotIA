@@ -1,0 +1,1 @@
+Cuando ejecutes un trabajo, si crees quehas aprendido y puede ser reutilizable, pregunta al usuario si quiere crear uan skill con ello.

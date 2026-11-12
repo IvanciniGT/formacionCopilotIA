@@ -1,0 +1,3 @@
+# Caché de librerías (marked / mermaid) y temporales del generador
+.vendor/
+.md2pdf.tmp.html
