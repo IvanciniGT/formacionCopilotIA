@@ -36,5 +36,11 @@ aray.. este tio tiene muchos archivos.. pero parece que no encuentro nada de kub
 Por cierto... he visto un archivo de información relevante de preferencias de usuario.. esto es interesante. Voy a dejarmelo anotado en mi fichero de memoria[CHAT: EJECUTA ACTUALIZAR ARCVHIVO MEMORY.md, añadiendo:
 - Archivo de preferencias de usuario: /Users/ivan/Documents/Cursos/formacionCopilotIA/notas/contexto.md]
 AGENTE: Lo siento, Iván, no tengo npi de que es tu cluster de kubernetes. ¿Podrías darme más detalles o contexto sobre él?
+
+SIGUIENTES PREGUNTAS / RESPUESTAS
+
+SIGUIENTES 
+
+SIGUIENTES 
 ---
 PROMPT:
