@@ -121,12 +121,12 @@ La caché expira. En Claude dura 1h
 
                 APRENDIZAJE DE UNA RED NEURONAL                                     Si la imagen es simétrica o no
                     La imagen queda caracterizada por 10 datos:
-                    N1: Simetría horizontal 1
-                    N2: Simetría vertical 1                                         Si es par o impar
-                    N3: Centro vs bordes 0
-                    N4: Diagonal derecha 1
-                    N5: Diagonal izquierda 0
-                    N10: Otro criterio 1
+                    N1: Simetría horizontal    1
+                    N2: Simetría vertical      1                                         Si es par o impar
+                    N3: Centro vs bordes       0
+                    N4: Diagonal derecha       1
+                    N5: Diagonal izquierda     0
+                    N10: Otro criterio         1
                             INFORMACION LATENTE
 
 
